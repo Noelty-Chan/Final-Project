@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 const auth = getAuth(initializeApp(firebaseConfig));
 const params = new URLSearchParams(window.location.search);
-const returnTo = params.get("return") === "index.html" ? "index.html" : "index.html";
+const returnTo = ["index.html", "saved.html"].includes(params.get("return")) ? params.get("return") : "index.html";
 let mode = params.get("mode") === "signin" ? "signin" : "signup";
 const $ = (id) => document.getElementById(id);
 
@@ -26,7 +26,7 @@ function renderMode() {
   $("page-auth-password").autocomplete = signup ? "new-password" : "current-password";
   $("page-auth-password").placeholder = signup ? "At least 6 characters" : "Your password";
   $("page-auth-password").minLength = signup ? 6 : 1;
-  $("page-auth-submit").innerHTML = signup ? "Create my account <span>↗</span>" : "Sign in to my account <span>↗</span>";
+  $("page-auth-submit").textContent = signup ? "Create my account" : "Sign in to my account";
   $("page-auth-switch").innerHTML = signup
     ? 'Already have an account? <button type="button" id="page-switch-button">Sign in</button>'
     : 'New to Inspo Quote? <button type="button" id="page-switch-button">Create an account</button>';

@@ -17,37 +17,27 @@
       <a class="brand" href="#home" aria-label="Inspo Quote home"><span class="brand-mark">iq.</span><span>Inspo Quote</span></a>
       <div class="side-label">YOUR SPACE</div>
       <nav class="side-nav" aria-label="Main navigation">
-        <button class="nav-item active" data-view="create"><span class="nav-icon">✳</span> Create <span class="nav-arrow">↗</span></button>
-        <button class="nav-item" data-view="saved"><span class="nav-icon">♡</span> Saved <span class="saved-count" id="saved-count">0</span></button>
+        <button class="nav-item active" data-view="create"><span class="nav-icon pencil-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5-.8 4.3 4.3-.8L19.8 7.7a2.1 2.1 0 0 0-3-3L4 16.5Z"/><path d="m14.9 6.6 2.9 2.9"/></svg></span> Create</button>
+        <a class="nav-item saved-nav-link" href="saved.html"><span class="nav-icon bookmark-nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.75A1.75 1.75 0 0 1 8.25 3h7.5a1.75 1.75 0 0 1 1.75 1.75V21l-6-3.8L5.5 21V4.75z"/></svg></span> Saved <span class="saved-count" id="saved-count">0</span></a>
       </nav>
       <div class="sidebar-bottom">
-        <div class="side-note"><span class="note-sparkle">✳</span><p>A small reminder can change the shape of your whole day.</p><span class="note-byline">KEEP WHAT MOVES YOU</span></div>
-        <div class="profile-row"><div class="avatar" id="avatar">G</div><div class="profile-copy"><strong id="profile-name">Your space</strong><span id="profile-email">Sign in to save quotes</span></div><button class="profile-action" id="account-action" aria-label="Sign in">↗</button></div>
+        <div class="profile-row"><div class="avatar" id="avatar">G</div><div class="profile-copy"><strong id="profile-name">Your space</strong><span id="profile-email">Sign in to save quotes</span></div><button class="profile-action" id="account-action" aria-label="Sign in">Sign in</button></div>
       </div>
     </aside>
     <main class="main-content" id="home">
-      <header class="topbar"><div class="breadcrumb">YOUR DAILY PAUSE <span>·</span> <time id="today"></time></div><div class="topbar-right"><span class="today-label"><i></i> A fresh perspective, just for you</span><button class="mobile-account" id="mobile-account">Sign in</button></div></header>
+      <header class="topbar"><div class="top-account-actions" id="top-account-actions"><span>Already have an account?</span><button class="top-signin" id="top-signin">Sign in</button><button class="top-signup" id="top-signup">Create account</button></div><div class="top-account-user hidden" id="top-account-user"><span id="top-account-email"></span><button id="top-signout">Sign out</button></div></header>
       <section class="intro" id="intro"><div class="eyebrow"><span class="eyebrow-line"></span> A MOMENT FOR YOU</div><h1>Find a little <em>perspective.</em></h1><p>Words to meet you where you are — and take you somewhere new.</p></section>
       <section class="workspace" id="create-view">
         <div class="editor-column">
-          <div class="section-heading"><div><span class="step-number">01</span><h2>Choose your mood</h2></div><span class="section-hint">What feels right today?</span></div>
-          <div class="mood-list" id="mood-list" aria-label="Choose a mood">
-            <button class="mood-chip selected" data-mood="All" aria-pressed="true">✦ <span>Surprise me</span></button>
-            <button class="mood-chip" data-mood="Courage" aria-pressed="false">↗ <span>Courage</span></button>
-            <button class="mood-chip" data-mood="Calm" aria-pressed="false">☼ <span>Calm</span></button>
-            <button class="mood-chip" data-mood="Growth" aria-pressed="false">❋ <span>Growth</span></button>
-            <button class="mood-chip" data-mood="Joy" aria-pressed="false">☻ <span>Joy</span></button>
-          </div>
-          <div class="section-heading quote-heading"><div><span class="step-number">02</span><h2>Your reminder</h2></div><button class="shuffle-button" id="shuffle-button"><span>↻</span> Another quote</button></div>
+          <div class="theme-heading"><h2>Customize your quote image</h2><div class="generator-controls"><label class="theme-select-wrap" for="theme-select"><span class="theme-select-label">THEME</span><select id="theme-select" aria-label="Choose a quote theme"><option value="All">Surprise me</option><option value="Courage">Courage</option><option value="Calm">Calm</option><option value="Growth">Growth</option><option value="Joy">Joy</option></select></label><label class="theme-select-wrap" for="dimension-select"><span class="theme-select-label">DIMENSIONS</span><select id="dimension-select" aria-label="Choose image dimensions"><option value="0.8">Portrait · 4:5</option><option value="1">Square · 1:1</option><option value="0.5625">Story · 9:16</option><option value="1.7778">Landscape · 16:9</option></select></label><label class="theme-select-wrap" for="resolution-select"><span class="theme-select-label">RESOLUTION · LONG EDGE</span><select id="resolution-select" aria-label="Choose image resolution"><option value="1080">Standard · 1080 px</option><option value="2048">High · 2048 px</option><option value="3840">Ultra · 3840 px</option></select></label></div></div>
+          <div class="section-heading quote-heading"><div><h2>Your reminder</h2></div><button class="shuffle-button" id="shuffle-button">Another quote</button></div>
           <article class="quote-card" id="quote-card" aria-live="polite">
-            <div class="quote-image" id="quote-image"><div class="image-shade"></div><div class="image-topline"><span class="image-tag"><i></i> <span id="quote-category">A THOUGHT TO KEEP</span></span><button class="image-heart" id="favorite-button" aria-label="Save this quote">♡</button></div><div class="quote-copy"><span class="quote-mark">“</span><blockquote id="quote-text"></blockquote><div class="quote-rule"></div><p class="quote-author" id="quote-author"></p></div><div class="image-footer"><span>INSPO QUOTE <b>·</b> A MOMENT FOR YOU</span><span id="image-index">01 / 12</span></div></div>
+            <div class="quote-image" id="quote-image"><div class="image-shade"></div><div class="image-topline"><span class="image-tag"><i></i> <span id="quote-category">A THOUGHT TO KEEP</span></span><button class="image-heart" id="favorite-button" aria-label="Save this quote"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.75A1.75 1.75 0 0 1 8.25 3h7.5a1.75 1.75 0 0 1 1.75 1.75V21l-6-3.8L5.5 21V4.75z"/></svg></button></div><div class="quote-copy"><span class="quote-mark">“</span><blockquote id="quote-text"></blockquote><div class="quote-rule"></div><p class="quote-author" id="quote-author"></p></div><div class="image-footer"><span>INSPO QUOTE <b>·</b> A MOMENT FOR YOU</span><span id="image-index">01 / 12</span></div></div>
           </article>
-          <div class="card-actions"><button class="download-button" id="download-button"><span>↓</span> Download image</button><div class="action-caption">Made to keep, share, or come back to.</div></div>
+          <div class="card-actions"><button class="download-button" id="download-button">Download image</button><div class="action-caption">Made to keep, share, or come back to.</div></div>
         </div>
-        <aside class="right-column"><div class="side-card account-card"><div class="card-orbit">✳</div><div class="card-eyebrow">YOUR WORDS, YOUR SPACE</div><h3>Keep the ones<br>that stay with you.</h3><p>Create a free account to save your favorite reminders and find them whenever you need them.</p><button class="dark-button" id="signup-button">Create your account <span>↗</span></button><button class="text-button" id="signin-button">Already have an account? <b>Sign in</b></button></div><div class="side-card quote-tip"><div class="tip-icon">✧</div><div><span class="card-eyebrow">A GENTLE NOTE</span><p>You don't have to have it all figured out to take the next step.</p></div></div><div class="tiny-footer">A little light, whenever you need it. <span>✳</span></div></aside>
       </section>
-      <section class="saved-view hidden" id="saved-view"><div class="saved-title"><div><span class="eyebrow"><span class="eyebrow-line"></span> YOUR COLLECTION</span><h1>Words to <em>keep.</em></h1><p id="saved-subtitle">The reminders you’ve saved along the way.</p></div><button class="outline-button" id="back-to-create">＋ Make something new</button></div><div class="saved-grid" id="saved-grid"></div><div class="empty-state" id="empty-state"><span>♡</span><h3>Your collection starts here.</h3><p>When a quote speaks to you, save it here for another day.</p><button class="dark-button" id="empty-create">Find your first quote <span>↗</span></button></div></section>
-      <footer class="page-footer"><span>TAKE WHAT YOU NEED. LEAVE THE REST.</span><span>MADE FOR THE IN-BETWEEN <b>✳</b></span></footer>
+      <footer class="page-footer"><span>© 2026 Inspo Quote. All rights reserved.</span></footer>
     </main>
   </div>
   <div class="toast" id="toast" role="status"></div>
