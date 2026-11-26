@@ -71,7 +71,7 @@ function renderQuote() {
   $("favorite-button").setAttribute("aria-label", saved ? "Remove saved quote" : "Save this quote");
 }
 function updateQuoteAppearance() {
-  const fonts = { serif: "'Playfair Display', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" };
+  const fonts = { serif: "'Lora', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" };
   const colors = { white: "#ffffff", ivory: "#fff1d6", ink: "#292a25" };
   const font = $("font-select").value;
   const color = $("quote-color-select").value;
@@ -115,28 +115,26 @@ function downloadQuote(quote) {
     const scale = Math.max(canvas.width / image.width, canvas.height / image.height);
     const width = image.width * scale, height = image.height * scale;
     ctx.drawImage(image, (canvas.width - width) / 2, (canvas.height - height) / 2, width, height);
-    const shade = ctx.createLinearGradient(0, 0, 0, canvas.height); shade.addColorStop(0, "rgba(13,22,27,.2)"); shade.addColorStop(.38, "rgba(13,22,27,.18)"); shade.addColorStop(1, "rgba(13,22,27,.68)"); ctx.fillStyle = shade; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const shade = ctx.createLinearGradient(0, 0, 0, canvas.height); shade.addColorStop(0, "rgba(16,11,7,.68)"); shade.addColorStop(.38, "rgba(16,11,7,.58)"); shade.addColorStop(1, "rgba(16,11,7,.84)"); ctx.fillStyle = shade; ctx.fillRect(0, 0, canvas.width, canvas.height);
     const shortEdge = Math.min(canvas.width, canvas.height);
     const margin = Math.round(shortEdge * .095);
     const quoteFontSize = Math.round(shortEdge * .042);
     const quoteFont = quote.quoteFont || $("font-select").value;
     const quoteColor = quote.quoteColor || $("quote-color-select").value;
-    const fontFamily = { serif: "'Playfair Display', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" }[quoteFont] || "'Playfair Display', Georgia, serif";
+    const fontFamily = { serif: "'Lora', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" }[quoteFont] || "'Lora', Georgia, serif";
     const textColor = { white: "#ffffff", ivory: "#fff1d6", ink: "#292a25" }[quoteColor] || "#ffffff";
     ctx.fillStyle = textColor; ctx.font = `500 ${quoteFontSize}px ${fontFamily}`;
     const words = `“${quote.text}”`.split(" "); const lines = []; let line = "";
     const textWidth = canvas.width - margin * 2;
     words.forEach((word) => { const test = line ? `${line} ${word}` : word; if (ctx.measureText(test).width > textWidth && line) { lines.push(line); line = word; } else line = test; }); if (line) lines.push(line);
     const lineHeight = Math.round(quoteFontSize * 1.38); let y = canvas.height * .53 - ((lines.length - 1) * lineHeight) / 2;
-    if (quoteColor === "ink") {
-      const panelTop = y - Math.round(quoteFontSize * 1.25);
-      const panelBottom = y + (lines.length - 1) * lineHeight + Math.round(quoteFontSize * 1.6);
-      const panelX = Math.round(margin * .5);
-      const panelWidth = canvas.width - panelX * 2;
-      ctx.fillStyle = "rgba(248,247,240,.94)";
-      ctx.beginPath(); ctx.roundRect(panelX, panelTop, panelWidth, panelBottom - panelTop, Math.round(shortEdge * .018)); ctx.fill();
-      ctx.fillStyle = textColor;
-    }
+    const panelTop = y - Math.round(quoteFontSize * 1.25);
+    const panelBottom = y + (lines.length - 1) * lineHeight + Math.round(quoteFontSize * 1.6);
+    const panelX = Math.round(margin * .5);
+    const panelWidth = canvas.width - panelX * 2;
+    ctx.fillStyle = quoteColor === "ink" ? "rgba(248,247,240,.96)" : "rgba(22,15,10,.92)";
+    ctx.beginPath(); ctx.roundRect(panelX, panelTop, panelWidth, panelBottom - panelTop, Math.round(shortEdge * .018)); ctx.fill();
+    ctx.fillStyle = textColor;
     lines.forEach((row) => { ctx.fillText(row, margin, y, textWidth); y += lineHeight; });
     ctx.fillStyle = quoteColor === "ink" ? "rgba(41,42,37,.78)" : "rgba(255,255,255,.76)"; ctx.font = `500 ${Math.round(shortEdge * .023)}px Arial`; ctx.fillText(`— ${quote.author}`, margin, y + Math.round(quoteFontSize * .95));
     ctx.fillStyle = "rgba(255,255,255,.7)"; ctx.font = `600 ${Math.round(shortEdge * .014)}px Arial`; ctx.letterSpacing = `${Math.round(shortEdge * .0025)}px`; ctx.fillText("INSPO QUOTE  ·  A MOMENT FOR YOU", margin, canvas.height - Math.round(margin * .58));
