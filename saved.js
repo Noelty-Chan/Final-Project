@@ -117,6 +117,7 @@ $("saved-signout").addEventListener("click", () => signOut(auth));
 onAuthStateChanged(auth, (user) => {
   currentUser = user;
   $("saved-user").textContent = user ? user.email : "";
+  $("saved-signin").classList.toggle("hidden", Boolean(user));
   $("saved-signout").classList.toggle("hidden", !user);
   renderSaved();
 });
