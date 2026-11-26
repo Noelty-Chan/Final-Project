@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDRAbvNSLTFN-vvdx9k27kPxsHl2BtBknA",
@@ -29,7 +29,6 @@ const imageUrl = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop
 let quoteIndex = Math.floor(Math.random() * quotes.length);
 let activeMood = "All";
 let user = null;
-let authMode = "signup";
 let toastTimer;
 const $ = (id) => document.getElementById(id);
 const app = initializeApp(firebaseConfig);
@@ -110,20 +109,7 @@ function downloadQuote(quote) {
   };
   image.onerror = () => showToast("The wallpaper couldn’t load. Please try again.");
 }
-function setMode(mode) {
-  authMode = mode;
-  const signup = mode === "signup";
-  $("auth-title").innerHTML = signup ? "Make room for<br><em>what moves you.</em>" : "Good to have<br><em>you back.</em>";
-  $("auth-description").textContent = signup ? "Create a free account to keep your favorite words close." : "Sign in to find the words you’ve saved.";
-  $("auth-password").autocomplete = signup ? "new-password" : "current-password";
-  $("auth-password").placeholder = signup ? "At least 6 characters" : "Your password";
-  $("auth-submit").innerHTML = signup ? "Create my account <span>↗</span>" : "Sign in to my account <span>↗</span>";
-  $("auth-switch").innerHTML = signup ? 'Already have an account? <button id="switch-auth">Sign in</button>' : 'New to Inspo Quote? <button id="switch-auth">Create an account</button>';
-  $("switch-auth").addEventListener("click", () => setMode(signup ? "signin" : "signup"));
-  $("auth-error").textContent = "";
-}
-function openAuth(mode = "signup") { setMode(mode); $("auth-modal").classList.remove("hidden"); document.body.classList.add("modal-open"); setTimeout(() => $("auth-email").focus(), 50); }
-function closeAuth() { $("auth-modal").classList.add("hidden"); document.body.classList.remove("modal-open"); }
+function openAuth(mode = "signup") { window.location.href = `signin.html?mode=${encodeURIComponent(mode)}&return=index.html`; }
 function setUser(nextUser) {
   user = nextUser;
   const signedIn = Boolean(user);
@@ -147,22 +133,6 @@ $("signup-button").addEventListener("click", () => openAuth("signup"));
 $("signin-button").addEventListener("click", () => openAuth("signin"));
 $("account-action").addEventListener("click", () => user ? signOut(auth).then(() => showToast("You’ve signed out.")) : openAuth("signin"));
 $("mobile-account").addEventListener("click", () => user ? signOut(auth).then(() => showToast("You’ve signed out.")) : openAuth("signin"));
-$("modal-close").addEventListener("click", closeAuth);
-$("auth-modal").addEventListener("click", (event) => { if (event.target === $("auth-modal")) closeAuth(); });
-document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeAuth(); });
-$("auth-form").addEventListener("submit", async (event) => {
-  event.preventDefault(); $("auth-error").textContent = "";
-  const email = $("auth-email").value.trim(); const password = $("auth-password").value;
-  const button = $("auth-submit"); button.disabled = true; button.innerHTML = "One moment…";
-  try {
-    if (authMode === "signup") await createUserWithEmailAndPassword(auth, email, password);
-    else await signInWithEmailAndPassword(auth, email, password);
-    closeAuth(); $("auth-form").reset(); showToast(authMode === "signup" ? "Your Inspo Quote space is ready." : "Welcome back to Inspo Quote.");
-  } catch (error) {
-    const messages = { "auth/email-already-in-use": "An account with this email already exists. Try signing in.", "auth/invalid-email": "Enter a valid email address.", "auth/weak-password": "Choose a password with at least 6 characters.", "auth/invalid-credential": "That email and password don’t match. Try again.", "auth/network-request-failed": "Couldn’t connect. Check your internet and try again." };
-    $("auth-error").textContent = messages[error.code] || "We couldn’t complete that just now. Please try again.";
-  } finally { button.disabled = false; setMode(authMode); }
-});
 function showView(view) {
   const saved = view === "saved";
   $("create-view").classList.toggle("hidden", saved); $("intro").classList.toggle("hidden", saved); $("saved-view").classList.toggle("hidden", !saved);
