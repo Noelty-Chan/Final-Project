@@ -12,7 +12,7 @@ const firebaseConfig = {
 };
 const auth = getAuth(initializeApp(firebaseConfig));
 const $ = (id) => document.getElementById(id);
-const imageUrl = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=90`;
+const imageUrl = (id, width = 1600, height) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}${height ? `&h=${height}` : ""}&q=90`;
 const imageSettingsKey = "inspo-quote:image-settings";
 let currentUser = null;
 
@@ -48,6 +48,11 @@ function renderSaved() {
     const copy = document.createElement("div"); copy.className = "saved-card-copy";
     const mood = document.createElement("span"); mood.className = "saved-mood"; mood.textContent = `${quote.mood} · SAVED QUOTE`;
     const text = document.createElement("blockquote"); text.textContent = `“${quote.text}”`;
+    const savedFonts = { serif: "'Playfair Display', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" };
+    text.style.fontFamily = savedFonts[quote.quoteFont] || savedFonts.serif;
+    const savedColors = { white: "#fff", ivory: "#fff1d6", ink: "#292a25" };
+    text.style.color = savedColors[quote.quoteColor] || savedColors.white;
+    if (quote.quoteColor === "ink") card.classList.add("light-quote-panel");
     const author = document.createElement("p"); author.textContent = `— ${quote.author}`;
     const actions = document.createElement("div"); actions.className = "saved-card-actions";
     const download = document.createElement("button"); download.type = "button"; download.textContent = "Download image"; download.addEventListener("click", () => downloadQuote(quote));
@@ -60,15 +65,19 @@ function renderSaved() {
 }
 
 function downloadQuote(quote) {
-  const image = new Image(); image.crossOrigin = "anonymous"; image.src = imageUrl(quote.image);
+  let settings = {};
+  try { settings = JSON.parse(localStorage.getItem(imageSettingsKey) || "{}"); } catch { /* Use defaults. */ }
+  const ratio = [0.8, 1, 0.5625, 1.7778].includes(Number(settings.ratio)) ? Number(settings.ratio) : 0.8;
+  const longEdge = [1080, 2048, 3840].includes(Number(settings.resolution)) ? Number(settings.resolution) : 1080;
+  const outputWidth = ratio >= 1 ? longEdge : Math.round(longEdge * ratio);
+  const outputHeight = ratio >= 1 ? Math.round(longEdge / ratio) : longEdge;
+  const quoteFont = quote.quoteFont || settings.font || "serif";
+  const quoteColor = quote.quoteColor || settings.color || "white";
+  const image = new Image(); image.crossOrigin = "anonymous"; image.src = imageUrl(quote.image, outputWidth, outputHeight);
   image.onload = () => {
-    let settings = {};
-    try { settings = JSON.parse(localStorage.getItem(imageSettingsKey) || "{}"); } catch { /* Use defaults. */ }
-    const ratio = [0.8, 1, 0.5625, 1.7778].includes(Number(settings.ratio)) ? Number(settings.ratio) : 0.8;
-    const longEdge = [1080, 2048, 3840].includes(Number(settings.resolution)) ? Number(settings.resolution) : 1080;
     const canvas = document.createElement("canvas");
-    canvas.width = ratio >= 1 ? longEdge : Math.round(longEdge * ratio);
-    canvas.height = ratio >= 1 ? Math.round(longEdge / ratio) : longEdge;
+    canvas.width = outputWidth;
+    canvas.height = outputHeight;
     const ctx = canvas.getContext("2d");
     const scale = Math.max(canvas.width / image.width, canvas.height / image.height);
     const width = image.width * scale, height = image.height * scale;
@@ -77,14 +86,25 @@ function downloadQuote(quote) {
     const shortEdge = Math.min(canvas.width, canvas.height);
     const margin = Math.round(shortEdge * .095);
     const quoteFontSize = Math.round(shortEdge * .042);
-    ctx.fillStyle = "#fff"; ctx.font = `500 ${quoteFontSize}px Georgia`;
+    const fontFamily = { serif: "'Playfair Display', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" }[quoteFont] || "'Playfair Display', Georgia, serif";
+    const textColor = { white: "#fff", ivory: "#fff1d6", ink: "#292a25" }[quoteColor] || "#fff";
+    ctx.fillStyle = textColor; ctx.font = `500 ${quoteFontSize}px ${fontFamily}`;
     const lines = []; let line = "";
     const textWidth = canvas.width - margin * 2;
     `“${quote.text}”`.split(" ").forEach((word) => { const next = line ? `${line} ${word}` : word; if (ctx.measureText(next).width > textWidth && line) { lines.push(line); line = word; } else line = next; });
     if (line) lines.push(line);
     const lineHeight = Math.round(quoteFontSize * 1.38); let y = canvas.height * .53 - ((lines.length - 1) * lineHeight) / 2;
+    if (quoteColor === "ink") {
+      const panelTop = y - Math.round(quoteFontSize * 1.25);
+      const panelBottom = y + (lines.length - 1) * lineHeight + Math.round(quoteFontSize * 1.6);
+      const panelX = Math.round(margin * .5);
+      const panelWidth = canvas.width - panelX * 2;
+      ctx.fillStyle = "rgba(248,247,240,.94)";
+      ctx.beginPath(); ctx.roundRect(panelX, panelTop, panelWidth, panelBottom - panelTop, Math.round(shortEdge * .018)); ctx.fill();
+      ctx.fillStyle = textColor;
+    }
     lines.forEach((row) => { ctx.fillText(row, margin, y, textWidth); y += lineHeight; });
-    ctx.fillStyle = "rgba(255,255,255,.76)"; ctx.font = `500 ${Math.round(shortEdge * .023)}px Arial`; ctx.fillText(`— ${quote.author}`, margin, y + Math.round(quoteFontSize * .95));
+    ctx.fillStyle = quoteColor === "ink" ? "rgba(41,42,37,.78)" : "rgba(255,255,255,.76)"; ctx.font = `500 ${Math.round(shortEdge * .023)}px Arial`; ctx.fillText(`— ${quote.author}`, margin, y + Math.round(quoteFontSize * .95));
     ctx.fillStyle = "rgba(255,255,255,.7)"; ctx.font = `600 ${Math.round(shortEdge * .014)}px Arial`; ctx.letterSpacing = `${Math.round(shortEdge * .0025)}px`; ctx.fillText("INSPO QUOTE  ·  A MOMENT FOR YOU", margin, canvas.height - Math.round(margin * .58));
     canvas.toBlob((blob) => {
       if (!blob) return;
