@@ -28,13 +28,16 @@ const quotes = [
 const imageUrl = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1600&q=90`;
 const bookmarkIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.75A1.75 1.75 0 0 1 8.25 3h7.5a1.75 1.75 0 0 1 1.75 1.75V21l-6-3.8L5.5 21V4.75z"/></svg>';
 const imageSettingsKey = "inspo-quote:image-settings";
+const ollamaModel = "hf.co/Qwen/Qwen3-4B-GGUF:Q4_K_M";
 let quoteIndex = Math.floor(Math.random() * quotes.length);
 let activeMood = "All";
+let generatedQuote = null;
 let user = null;
 let toastTimer;
 const $ = (id) => document.getElementById(id);
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const currentQuote = () => generatedQuote || quotes[quoteIndex];
 
 function getSaved() {
   if (!user) return [];
@@ -53,11 +56,11 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove("visible"), 2600);
 }
 function renderQuote() {
-  const quote = quotes[quoteIndex];
+  const quote = currentQuote();
   $("quote-text").textContent = quote.text;
   $("quote-author").textContent = `— ${quote.author}`;
   $("quote-category").textContent = `${quote.mood.toUpperCase()} · A THOUGHT TO KEEP`;
-  $("image-index").textContent = `${String(quoteIndex + 1).padStart(2, "0")} / ${String(quotes.length).padStart(2, "0")}`;
+  $("image-index").textContent = generatedQuote ? "AI ORIGINAL" : `${String(quoteIndex + 1).padStart(2, "0")} / ${String(quotes.length).padStart(2, "0")}`;
   $("quote-image").style.backgroundImage = `url("${imageUrl(quote.image)}")`;
   const saved = getSaved().some((item) => item.text === quote.text);
   $("favorite-button").classList.toggle("is-saved", saved);
@@ -65,6 +68,7 @@ function renderQuote() {
   $("favorite-button").setAttribute("aria-label", saved ? "Remove saved quote" : "Save this quote");
 }
 function nextQuote() {
+  generatedQuote = null;
   const pool = quotes.map((quote, i) => ({ quote, i })).filter(({ quote, i }) => i !== quoteIndex && (activeMood === "All" || quote.mood === activeMood)).map(({ i }) => i);
   if (!pool.length) return renderQuote();
   quoteIndex = pool[Math.floor(Math.random() * pool.length)];
@@ -102,6 +106,52 @@ function downloadQuote(quote) {
   };
   image.onerror = () => showToast("The wallpaper couldn’t load. Please try again.");
 }
+async function generateAIQuote() {
+  const button = $("ai-quote-button");
+  const status = $("ai-status");
+  button.disabled = true;
+  button.textContent = "Generating…";
+  status.textContent = "Asking your local Ollama model for an original quote…";
+  try {
+    const response = await fetch("http://localhost:11434/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: ollamaModel,
+        stream: false,
+        format: "json",
+        options: { temperature: 0.85 },
+        messages: [
+          { role: "system", content: "Write original inspirational one-line quotes. Never imitate or attribute words to real people. Return only valid JSON with one string field named quote. Keep the quote under 22 words." },
+          { role: "user", content: `Write one fresh inspirational quote about ${activeMood === "All" ? "everyday courage, patience, or growth" : activeMood.toLowerCase()}. Do not add an author or explanation.` }
+        ]
+      })
+    });
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      if (response.status === 404) throw new Error(`The model is not installed. Run: ollama run ${ollamaModel}`);
+      throw new Error(error.error || `Ollama returned status ${response.status}.`);
+    }
+    const payload = await response.json();
+    const result = JSON.parse(payload.message?.content || "{}");
+    const text = typeof result.quote === "string" ? result.quote.trim().replace(/^["“]|["”]$/g, "") : "";
+    if (!text || text.length > 220) throw new Error("The model returned an unexpected response. Please try again.");
+    const mood = activeMood === "All" ? quotes[quoteIndex].mood : activeMood;
+    const matchingQuotes = quotes.filter((quote) => quote.mood === mood);
+    const wallpaper = matchingQuotes[Math.floor(Math.random() * matchingQuotes.length)] || quotes[quoteIndex];
+    generatedQuote = { text, author: "An original reflection", mood, image: wallpaper.image };
+    renderQuote();
+    status.textContent = "Created locally with Hugging Face Qwen3 via Ollama.";
+  } catch (error) {
+    const message = error instanceof TypeError
+      ? "Couldn’t reach Ollama. Start Ollama, install the model, and allow this site’s origin if prompted."
+      : error.message;
+    status.textContent = message;
+  } finally {
+    button.disabled = false;
+    button.textContent = "Generate with AI";
+  }
+}
 function openAuth(mode = "signup") { window.location.href = `signin.html?mode=${encodeURIComponent(mode)}&return=index.html`; }
 function setUser(nextUser) {
   user = nextUser;
@@ -132,10 +182,11 @@ $("dimension-select").addEventListener("change", saveImageSettings);
 $("resolution-select").addEventListener("change", saveImageSettings);
 $("theme-select").addEventListener("change", (event) => {
   activeMood = event.target.value;
-  if (activeMood === "All" || quotes[quoteIndex].mood !== activeMood) nextQuote();
+  if (generatedQuote || activeMood === "All" || quotes[quoteIndex].mood !== activeMood) nextQuote();
 });
-$("favorite-button").addEventListener("click", () => { if (!user) return openAuth("signup"); const quote = quotes[quoteIndex]; const saved = getSaved(); const exists = saved.some((item) => item.text === quote.text); setSaved(exists ? saved.filter((item) => item.text !== quote.text) : [{ ...quote }, ...saved]); renderQuote(); showToast(exists ? "Removed from your collection." : "Saved to your collection."); });
-$("download-button").addEventListener("click", () => downloadQuote(quotes[quoteIndex]));
+$("favorite-button").addEventListener("click", () => { if (!user) return openAuth("signup"); const quote = currentQuote(); const saved = getSaved(); const exists = saved.some((item) => item.text === quote.text); setSaved(exists ? saved.filter((item) => item.text !== quote.text) : [{ ...quote }, ...saved]); renderQuote(); showToast(exists ? "Removed from your collection." : "Saved to your collection."); });
+$("download-button").addEventListener("click", () => downloadQuote(currentQuote()));
+$("ai-quote-button").addEventListener("click", generateAIQuote);
 $("top-signin").addEventListener("click", () => openAuth("signin"));
 $("top-signup").addEventListener("click", () => openAuth("signup"));
 $("top-signout").addEventListener("click", () => signOut(auth).then(() => showToast("You’ve signed out.")));
