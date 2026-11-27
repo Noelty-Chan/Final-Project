@@ -2851,10 +2851,3 @@ select:focus-visible {
     border-color: #f0d2a5;
     color: #1a1511;
 }
-
-    opacity: 1;
-    background: #4b3929;
-    border-color: #8a6b48;
-    color: #f0e4d2;
-    cursor: not-allowed;
-}
