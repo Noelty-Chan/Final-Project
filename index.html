@@ -18,32 +18,24 @@
 <body>
   <div class="app-shell">
     <aside class="sidebar">
-      <a class="brand" href="#home" aria-label="Inspo Quote home"><span class="brand-mark">iq.</span><span>Inspo
+      <a class="brand" href="#home" aria-label="Inspo Quote home"><span class="brand-mark">iq.</span><span class="brand-word">Inspo
           Quote</span></a>
-      <div class="side-label">YOUR SPACE</div>
+      <div class="side-label">YOUR COLLECTION</div>
       <nav class="side-nav" aria-label="Main navigation">
         <button class="nav-item active" data-view="create"><span class="nav-icon pencil-nav-icon"><svg
               viewBox="0 0 24 24" aria-hidden="true">
               <path d="m4 16.5-.8 4.3 4.3-.8L19.8 7.7a2.1 2.1 0 0 0-3-3L4 16.5Z" />
               <path d="m14.9 6.6 2.9 2.9" />
-            </svg></span> Create</button>
+            </svg></span><span class="nav-label">Create</span></button>
         <a class="nav-item saved-nav-link" href="saved.html"><span class="nav-icon bookmark-nav-icon"><svg
               viewBox="0 0 24 24" aria-hidden="true">
               <path d="M6.5 4.75A1.75 1.75 0 0 1 8.25 3h7.5a1.75 1.75 0 0 1 1.75 1.75V21l-6-3.8L5.5 21V4.75z" />
-            </svg></span> Saved <span class="saved-count" id="saved-count">0</span></a>
+            </svg></span><span class="nav-label">Saved</span><span class="saved-count" id="saved-count">0</span></a>
       </nav>
-      <div class="sidebar-bottom">
-        <div class="profile-row">
-          <div class="avatar" id="avatar">G</div>
-          <div class="profile-copy"><strong id="profile-name">Your space</strong><span id="profile-email">Sign in to
-              save quotes</span></div><button class="profile-action" id="account-action" aria-label="Sign in">Sign
-            in</button>
-        </div>
-      </div>
     </aside>
     <main class="main-content" id="home">
       <header class="topbar">
-        <div class="top-account-actions" id="top-account-actions"><span>Already have an account?</span><button
+        <div class="top-account-actions" id="top-account-actions"><button
             class="top-signin" id="top-signin">Sign in</button><button class="top-signup" id="top-signup">Create
             account</button></div>
         <div class="top-account-user hidden" id="top-account-user"><span id="top-account-email"></span><button
@@ -59,6 +51,7 @@
             <h2>Customize your quote image</h2>
             <div class="generator-controls"><label class="theme-select-wrap" for="theme-select"><span
                   class="theme-select-label">THEME</span><select id="theme-select" aria-label="Choose a quote theme">
+                  <option value="" selected disabled>Pick One</option>
                   <option value="All">Surprise me</option>
                   <option value="Courage">Courage</option>
                   <option value="Calm">Calm</option>
@@ -67,47 +60,41 @@
                 </select></label><label class="theme-select-wrap" for="dimension-select"><span
                   class="theme-select-label">DIMENSIONS</span><select id="dimension-select"
                   aria-label="Choose image dimensions">
+                  <option value="" selected disabled>Pick One</option>
                   <option value="0.8">Portrait · 4:5</option>
                   <option value="1">Square · 1:1</option>
                   <option value="0.5625">Story · 9:16</option>
                   <option value="1.7778">Landscape · 16:9</option>
                 </select></label><label class="theme-select-wrap" for="resolution-select"><span
-                  class="theme-select-label">RESOLUTION · LONG EDGE</span><select id="resolution-select"
+                  class="theme-select-label">RESOLUTION</span><select id="resolution-select"
                   aria-label="Choose image resolution">
-                  <option value="1080">Standard · 1080 px</option>
-                  <option value="2048">High · 2048 px</option>
-                  <option value="3840">Ultra · 3840 px</option>
+                  <option value="" selected disabled>Pick One</option>
+                  <option value="1080">Low · 1080 px</option>
+                  <option value="2048">Medium · 2048 px</option>
+                  <option value="3840">High · 3840 px</option>
                 </select></label><label class="theme-select-wrap" for="font-select"><span
                   class="theme-select-label">QUOTE FONT</span><select id="font-select" aria-label="Choose quote font">
+                  <option value="" selected disabled>Pick One</option>
                   <option value="serif">Editorial serif</option>
                   <option value="sans">Clean sans</option>
                   <option value="mono">Typewriter</option>
                 </select></label><label class="theme-select-wrap" for="quote-color-select"><span
                   class="theme-select-label">QUOTE COLOR</span><select id="quote-color-select"
                   aria-label="Choose quote color">
-                  <option value="white">Soft white</option>
-                  <option value="ivory">Warm ivory</option>
-                  <option value="ink">Dark ink · light panel</option>
+                  <option value="" selected disabled>Pick One</option>
+                  <option value="white">White</option>
+                  <option value="ink">Black</option>
                 </select></label></div>
           </div>
           <div class="section-heading quote-heading">
             <div>
               <h2>Your reminder</h2>
             </div>
-            <div class="quote-actions"><button class="shuffle-button" id="shuffle-button">Another quote</button><button
-                class="ai-quote-button" id="ai-quote-button">Generate with AI</button></div>
+            <div class="quote-actions"><button class="shuffle-button" id="shuffle-button">Another quote</button></div>
           </div>
-          <details class="ai-setup">
-            <summary>AI by Hugging Face · runs locally with Ollama</summary>
-            <p>Install Ollama, then run this command once to download the Qwen3 4B model:</p>
-            <code>ollama run hf.co/Qwen/Qwen3-4B-GGUF:Q4_K_M</code>
-            <p>Keep Ollama running to generate original quotes. If this site is hosted, allow its origin in Ollama’s
-              <code>OLLAMA_ORIGINS</code> setting.</p><a href="https://huggingface.co/Qwen/Qwen3-4B-GGUF"
-              target="_blank" rel="noreferrer">View the Hugging Face model</a>
-          </details>
-          <p class="ai-status" id="ai-status" aria-live="polite"></p>
-          <div class="preview-spec"><span>LIVE IMAGE PREVIEW</span><span id="preview-size">864 × 1080 PX</span></div>
-          <article class="quote-card" id="quote-card" aria-live="polite">
+          <div class="preview-empty" id="preview-empty">Choose a theme, dimensions, resolution, font, and quote color to create your live preview.</div>
+          <div class="preview-spec hidden" id="preview-spec"><span>LIVE IMAGE PREVIEW</span></div>
+          <article class="quote-card hidden" id="quote-card" aria-live="polite">
             <div class="quote-image" id="quote-image">
               <div class="image-shade"></div>
               <div class="image-topline"><span class="image-tag"><i></i> <span id="quote-category">A THOUGHT TO
@@ -119,13 +106,10 @@
                 <div class="quote-rule"></div>
                 <p class="quote-author" id="quote-author"></p>
               </div>
-              <div class="image-footer"><span>INSPO QUOTE <b>·</b> A MOMENT FOR YOU</span><span id="image-index">01 /
-                  12</span></div>
             </div>
           </article>
-          <div class="card-actions"><button class="download-button" id="download-button">Download image</button><button
+          <div class="card-actions hidden" id="card-actions"><button class="download-button" id="download-button">Download image</button><button
               class="change-bg-button" id="change-background-button">Change background</button>
-            <div class="action-caption">Made to keep, share, or come back to.</div>
           </div>
         </div>
       </section>
