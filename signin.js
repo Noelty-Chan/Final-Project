@@ -20,8 +20,6 @@ const $ = (id) => document.getElementById(id);
 function renderMode() {
   const signup = mode === "signup";
   document.title = `${signup ? "Create account" : "Sign in"} · Inspo Quote`;
-  $("page-auth-eyebrow").textContent = signup ? "YOUR PERSONAL COLLECTION" : "WELCOME BACK";
-  $("page-auth-title").innerHTML = signup ? "Make room for<br><em>what moves you.</em>" : "Good to have<br><em>you back.</em>";
   $("page-auth-description").textContent = signup ? "Create a free account to keep your favorite words close." : "Sign in to find the words you’ve saved.";
   $("page-auth-password").autocomplete = signup ? "new-password" : "current-password";
   $("page-auth-password").placeholder = signup ? "At least 6 characters" : "Your password";

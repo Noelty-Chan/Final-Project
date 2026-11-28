@@ -232,7 +232,6 @@ button {
     display: flex;
     align-items: center;
     gap: 9px;
-    color: #868a70;
     font-size: clamp(16px, calc(1vw + 12px), 18px)
 }
 
@@ -2851,4 +2850,167 @@ select:focus-visible {
     background: #f0d2a5;
     border-color: #f0d2a5;
     color: #1a1511;
+}
+
+/* Keep the standalone sign-in page aligned with the active site palette. */
+.auth-page {
+    background: radial-gradient(ellipse at 72% 8%, #302319 0, transparent 42%), #1a1511;
+    color: #eadcc8;
+}
+
+.auth-page-card {
+    background: #292019;
+    border-color: #4b3929;
+    box-shadow: 0 18px 70px #09060366;
+}
+
+.auth-page-card h1,
+.auth-page-card label {
+    color: #f0e4d2;
+}
+
+.auth-page-card h1 em,
+.auth-page-switch button {
+    color: #d2a56f;
+}
+
+.auth-page-description,
+.auth-page-switch,
+.auth-back-link {
+    color: #c1ae93;
+}
+
+.auth-page-card input {
+    background: #1c1611;
+    border-color: #8a6b48;
+    color: #f0e4d2;
+}
+
+.auth-page-card input::placeholder {
+    color: #b49f84;
+}
+
+.auth-page-card .dark-button {
+    background: #e4bc8a;
+    color: #1a1511;
+}
+
+.auth-page-card .dark-button:hover {
+    background: #f0d2a5;
+    color: #1a1511;
+}
+
+.auth-page-footer {
+    color: #a79276;
+}
+
+.removed-quotes-section {
+    margin-top: 36px;
+    padding: 24px;
+    border: 1px solid #46382b;
+    border-radius: 8px;
+    background: #211a15;
+}
+
+.removed-quotes-section h2 {
+    margin: 0 0 6px;
+    color: #f0e4d2;
+    font: 500 23px/1.3 var(--serif);
+}
+
+.removed-quotes-section > p {
+    margin: 0 0 16px;
+    color: #c1ae93;
+    font-size: clamp(16px, calc(1vw + 12px), 18px);
+}
+
+.removed-quotes-list {
+    display: grid;
+    gap: 9px;
+}
+
+.removed-quote-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 12px 14px;
+    border: 1px solid #46382b;
+    border-radius: 5px;
+    color: #eadcc8;
+}
+
+.removed-quote-row p {
+    margin: 0;
+    font: 500 16px/1.5 var(--serif);
+}
+
+.removed-quote-row button {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    border: 1px solid #c1915d;
+    border-radius: 4px;
+    background: #e4bc8a;
+    color: #1a1511;
+    font-size: 16px;
+}
+
+.removed-quote-row button:hover {
+    background: #f0d2a5;
+}
+
+@media (max-width: 560px) {
+    .removed-quotes-section { padding: 18px 14px; }
+    .removed-quote-row { align-items: flex-start; flex-direction: column; gap: 10px; }
+}
+
+/* Match the saved collection to the generator's dark vintage palette. */
+.saved-page {
+    background: radial-gradient(ellipse at 72% 8%, #302319 0, transparent 42%), #1a1511;
+    color: #eadcc8;
+}
+
+.saved-topbar {
+    background: #1a1511;
+    border-color: #46382b;
+}
+
+.saved-title .eyebrow,
+.saved-total {
+    color: #b49f84;
+}
+
+.saved-title h1 {
+    color: #f0e4d2;
+}
+
+.saved-title h1 em {
+    color: #d3ad7b;
+}
+
+.saved-title > div > p {
+    color: #b5a48d;
+}
+
+.saved-top-actions,
+.saved-signin,
+.saved-signout {
+    color: #d3ad7b;
+}
+
+.saved-create-cta,
+.saved-create-cta:hover {
+    background: #e4bc8a;
+    border: 1px solid #e4bc8a;
+    color: #1a1511;
+}
+
+.saved-create-cta:hover {
+    background: #f0d2a5;
+    border-color: #f0d2a5;
+}
+
+.saved-page-footer {
+    border-color: #46382b;
+    color: #a79276;
 }

@@ -14,19 +14,31 @@ const auth = getAuth(initializeApp(firebaseConfig));
 const $ = (id) => document.getElementById(id);
 const imageUrl = (id, width = 1600, height) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}${height ? `&h=${height}` : ""}&q=90`;
 const imageSettingsKey = "inspo-quote:image-settings";
+const savedKey = (uid) => `stillword:saved:${uid}`;
+const removedKey = (uid) => `stillword:removed:${uid}`;
 let currentUser = null;
 
 function getSaved() {
   if (!currentUser) return [];
-  try { return JSON.parse(localStorage.getItem(`stillword:saved:${currentUser.uid}`) || "[]"); }
+  try { return JSON.parse(localStorage.getItem(savedKey(currentUser.uid)) || "[]"); }
   catch { return []; }
 }
+function getRemoved() {
+  if (!currentUser) return [];
+  try { return JSON.parse(localStorage.getItem(removedKey(currentUser.uid)) || "[]"); }
+  catch { return []; }
+}
+function setSaved(items) { localStorage.setItem(savedKey(currentUser.uid), JSON.stringify(items)); }
+function setRemoved(items) { localStorage.setItem(removedKey(currentUser.uid), JSON.stringify(items)); }
 function renderSaved() {
   const items = getSaved();
+  const removedItems = getRemoved();
   $("saved-grid").replaceChildren();
   $("saved-grid").classList.toggle("hidden", !currentUser || items.length === 0);
   $("saved-empty").classList.toggle("hidden", currentUser && items.length > 0);
   $("saved-total").textContent = currentUser ? `${items.length} SAVED` : "";
+  $("removed-quotes-section").classList.toggle("hidden", !currentUser || removedItems.length === 0);
+  $("removed-quotes-list").replaceChildren();
   $("saved-subtitle").textContent = currentUser ? `${items.length} reminder${items.length === 1 ? "" : "s"} you’ve saved along the way.` : "Sign in to see your saved quote images.";
 
   if (!currentUser) {
@@ -56,11 +68,28 @@ function renderSaved() {
     const author = document.createElement("p"); author.textContent = `— ${quote.author}`;
     const actions = document.createElement("div"); actions.className = "saved-card-actions";
     const download = document.createElement("button"); download.type = "button"; download.textContent = "Download image"; download.addEventListener("click", () => downloadQuote(quote));
-    const remove = document.createElement("button"); remove.type = "button"; remove.textContent = "Remove"; remove.addEventListener("click", () => {
-      localStorage.setItem(`stillword:saved:${currentUser.uid}`, JSON.stringify(getSaved().filter((item) => item.text !== quote.text)));
+    const remove = document.createElement("button"); remove.type = "button"; remove.textContent = "Remove"; remove.setAttribute("aria-label", `Remove quote by ${quote.author}`); remove.addEventListener("click", () => {
+      const current = getSaved();
+      const removedQuote = current.find((item) => item.text === quote.text && item.author === quote.author);
+      if (!removedQuote) return;
+      setSaved(current.filter((item) => item !== removedQuote));
+      setRemoved([removedQuote, ...getRemoved().filter((item) => item.text !== quote.text || item.author !== quote.author)]);
       renderSaved();
     });
     actions.append(download, remove); copy.append(mood, text, author, actions); card.append(copy); $("saved-grid").append(card);
+  });
+
+  removedItems.forEach((quote) => {
+    const row = document.createElement("div"); row.className = "removed-quote-row";
+    const summary = document.createElement("p"); summary.textContent = `“${quote.text}” — ${quote.author}`;
+    const restore = document.createElement("button"); restore.type = "button"; restore.textContent = "Restore";
+    restore.setAttribute("aria-label", `Restore quote by ${quote.author}`);
+    restore.addEventListener("click", () => {
+      setRemoved(getRemoved().filter((item) => item.text !== quote.text || item.author !== quote.author));
+      setSaved([quote, ...getSaved()]);
+      renderSaved();
+    });
+    row.append(summary, restore); $("removed-quotes-list").append(row);
   });
 }
 
