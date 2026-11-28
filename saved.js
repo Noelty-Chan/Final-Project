@@ -48,7 +48,7 @@ function renderSaved() {
     const copy = document.createElement("div"); copy.className = "saved-card-copy";
     const mood = document.createElement("span"); mood.className = "saved-mood"; mood.textContent = `${quote.mood} · SAVED QUOTE`;
     const text = document.createElement("blockquote"); text.textContent = `“${quote.text}”`;
-    const savedFonts = { serif: "'Lora', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" };
+    const savedFonts = { script: "'Caveat', cursive", serif: "'Lora', Georgia, serif", sans: "'DM Sans', Arial, sans-serif" };
     text.style.fontFamily = savedFonts[quote.quoteFont] || savedFonts.serif;
     const savedColors = { white: "#fff", ivory: "#fff1d6", ink: "#292a25" };
     text.style.color = savedColors[quote.quoteColor] || savedColors.white;
@@ -86,7 +86,7 @@ function downloadQuote(quote) {
     const shortEdge = Math.min(canvas.width, canvas.height);
     const margin = Math.round(shortEdge * .095);
     const quoteFontSize = Math.round(shortEdge * .042);
-    const fontFamily = { serif: "'Lora', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" }[quoteFont] || "'Lora', Georgia, serif";
+    const fontFamily = { script: "'Caveat', cursive", serif: "'Lora', Georgia, serif", sans: "'DM Sans', Arial, sans-serif" }[quoteFont] || "'Lora', Georgia, serif";
     const textColor = { white: "#fff", ivory: "#fff1d6", ink: "#292a25" }[quoteColor] || "#fff";
     ctx.fillStyle = textColor; ctx.font = `500 ${quoteFontSize}px ${fontFamily}`;
     const lines = []; let line = "";

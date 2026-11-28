@@ -67,7 +67,7 @@ function renderQuote() {
   $("favorite-button").setAttribute("aria-label", saved ? "Remove saved quote" : "Save this quote");
 }
 function updateQuoteAppearance() {
-  const fonts = { serif: "'Lora', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" };
+  const fonts = { script: "'Caveat', cursive", serif: "'Lora', Georgia, serif", sans: "'DM Sans', Arial, sans-serif" };
   const colors = { white: "#ffffff", ivory: "#fff1d6", ink: "#292a25" };
   const font = $("font-select").value;
   const color = $("quote-color-select").value;
@@ -118,7 +118,7 @@ function downloadQuote(quote) {
     const quoteFontSize = Math.round(shortEdge * .042);
     const quoteFont = quote.quoteFont || $("font-select").value;
     const quoteColor = quote.quoteColor || $("quote-color-select").value;
-    const fontFamily = { serif: "'Lora', Georgia, serif", sans: "Arial, Helvetica, sans-serif", mono: "'Courier New', monospace" }[quoteFont] || "'Lora', Georgia, serif";
+    const fontFamily = { script: "'Caveat', cursive", serif: "'Lora', Georgia, serif", sans: "'DM Sans', Arial, sans-serif" }[quoteFont] || "'Lora', Georgia, serif";
     const textColor = { white: "#ffffff", ivory: "#fff1d6", ink: "#292a25" }[quoteColor] || "#ffffff";
     ctx.fillStyle = textColor; ctx.font = `500 ${quoteFontSize}px ${fontFamily}`;
     const words = `“${quote.text}”`.split(" "); const lines = []; let line = "";
