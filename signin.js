@@ -24,7 +24,7 @@ function renderMode() {
   $("page-auth-password").autocomplete = signup ? "new-password" : "current-password";
   $("page-auth-password").placeholder = signup ? "At least 6 characters" : "Your password";
   $("page-auth-password").minLength = signup ? 6 : 1;
-  $("page-auth-submit").textContent = signup ? "Create my account" : "Sign in to my account";
+  $("page-auth-submit").textContent = signup ? "Create account" : "Sign in to my account";
   $("page-auth-switch").innerHTML = signup
     ? 'Already have an account? <button type="button" id="page-switch-button">Sign in</button>'
     : 'New to Inspo Quote? <button type="button" id="page-switch-button">Create an account</button>';

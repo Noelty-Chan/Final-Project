@@ -466,9 +466,13 @@ button {
     transition: .2s
 }
 
-.download-button:hover,
-.dark-button:hover {
+.download-button:hover {
     background: #5c634b;
+    transform: translateY(-1px)
+}
+
+.dark-button:hover {
+    background: #38291d;
     transform: translateY(-1px)
 }
 
@@ -2850,6 +2854,12 @@ select:focus-visible {
     background: #f0d2a5;
     border-color: #f0d2a5;
     color: #1a1511;
+}
+
+.top-account-actions .top-signup,
+.auth-page-card #page-auth-submit {
+    justify-content: center;
+    text-align: center;
 }
 
 /* Keep the standalone sign-in page aligned with the active site palette. */
