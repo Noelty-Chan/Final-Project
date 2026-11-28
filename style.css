@@ -2,7 +2,7 @@
     --paper: #f8f7f4;
     --ink: #252722;
     --muted: #8b8b81;
-    --olive: #7b8263;
+    --caramel: #7b8263;
     --line: #e9e7e0;
     --serif: 'Lora', Georgia, serif;
     --script: 'Caveat', cursive;
@@ -63,6 +63,15 @@ button {
     font-size: 17px;
     font-weight: 700;
     letter-spacing: -.7px
+}
+
+.brand-logo {
+    display: block;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .brand-mark,
@@ -955,8 +964,9 @@ button {
         display: none
     }
 
-    .brand-mark {
-        font-size: 19px
+    .brand-logo {
+        width: 34px;
+        height: 34px
     }
 
     .side-label {
@@ -1543,10 +1553,9 @@ button {
         font-size: clamp(16px, calc(1vw + 12px), 18px)
     }
 
-    .saved-topbar .brand-mark {
-        width: 26px;
-        height: 26px;
-        font-size: 16px
+    .saved-topbar .brand-logo {
+        width: 28px;
+        height: 28px
     }
 
     .saved-top-actions {
@@ -2384,7 +2393,7 @@ button {
     --paper: #1a1511;
     --ink: #eadcc8;
     --muted: #b6a48c;
-    --olive: #b18455;
+    --caramel: #b18455;
     --line: #46382b;
 }
 
@@ -2710,7 +2719,7 @@ select:focus-visible {
     .topbar { min-height: 54px; }
     .top-account-actions { gap: 10px; }
     .saved-topbar .brand { font-size: clamp(16px, calc(1vw + 12px), 18px); }
-    .saved-topbar .brand-mark { width: 24px; height: 24px; font-size: 15px; }
+    .saved-topbar .brand-logo { width: 26px; height: 26px; }
     .saved-top-actions { gap: 5px; }
     .saved-top-actions .saved-create-cta { padding-inline: 7px; font-size: clamp(16px, calc(1vw + 12px), 18px); }
 }

@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
-import { quotes } from "./quotes.js";
-import { wallpapers } from "./wallpapers.js";
+import { quotes } from "../quotes.js";
+import { wallpapers } from "../wallpapers.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDRAbvNSLTFN-vvdx9k27kPxsHl2BtBknA",
@@ -139,7 +139,7 @@ function downloadQuote(quote) {
   };
   image.onerror = () => showToast("The wallpaper couldn’t load. Please try again.");
 }
-function openAuth(mode = "signup") { window.location.href = `signin.html?mode=${encodeURIComponent(mode)}&return=index.html`; }
+function openAuth(mode = "signup") { window.location.href = `../signin/?mode=${encodeURIComponent(mode)}&return=create`; }
 function setUser(nextUser) {
   user = nextUser;
   const signedIn = Boolean(user);

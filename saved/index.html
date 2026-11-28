@@ -5,22 +5,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1a1511">
+  <link rel="icon" type="image/png" sizes="64x64" href="../favicon.png">
   <title>Saved quotes · Inspo Quote</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
   <script src="saved.js" type="module"></script>
 </head>
 
 <body class="saved-page">
-  <header class="saved-topbar"><a class="brand" href="index.html"><span class="brand-mark">iq.</span><span>Inspo
+  <header class="saved-topbar"><a class="brand" href="../create/"><img class="brand-logo" src="../Inspo_Quote_Logo.png" alt=""><span>Inspo
         Quote</span></a>
     <div class="saved-top-actions"><span id="saved-user"></span><a class="saved-signin hidden" id="saved-signin"
-        href="signin.html?mode=signin&return=saved.html">Sign in</a><button class="saved-signout hidden"
-        id="saved-signout">Sign out</button><a class="dark-button saved-create-cta" href="index.html">Create a quote</a>
+        href="../signin/?mode=signin&return=saved">Sign in</a><button class="saved-signout hidden"
+        id="saved-signout">Sign out</button><a class="dark-button saved-create-cta" href="../create/">Create a quote</a>
     </div>
   </header>
   <main class="saved-main">
@@ -38,14 +39,14 @@
         </svg></span>
       <h3 id="empty-title">Your collection starts here.</h3>
       <p id="empty-copy">When a quote speaks to you, save it here for another day.</p><a class="dark-button"
-        id="empty-link" href="index.html">Find your first quote</a>
+        id="empty-link" href="../create/">Find your first quote</a>
     </section>
     <section class="removed-quotes-section hidden" id="removed-quotes-section" aria-labelledby="removed-quotes-title">
       <h2 id="removed-quotes-title">Recently removed</h2>
       <p>Restore a quote to put it back in your collection.</p>
       <div class="removed-quotes-list" id="removed-quotes-list" aria-live="polite"></div>
     </section>
-    <p class="saved-page-footer">© 2026 Inspo Quote. All rights reserved.</p>
+    <p class="saved-page-footer">© 2026 Noel Chan · Inspo Quote. All rights reserved.</p>
   </main>
 </body>
 

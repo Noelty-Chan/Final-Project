@@ -1,6 +1,13 @@
 {
   "hosting": {
     "public": ".",
+    "redirects": [
+      {
+        "source": "/",
+        "destination": "/create/",
+        "type": 302
+      }
+    ],
     "ignore": [
       "firebase.json",
       "firebaserc",
@@ -11,7 +18,16 @@
       "**/.git/**",
       "**/.*",
       "**/node_modules/**",
+      "logs/**",
       "firepit-log.txt"
     ]
+  },
+  "emulators": {
+    "dataconnect": {
+      "dataDir": "dataconnect/.dataconnect/pgliteData"
+    }
+  },
+  "dataconnect": {
+    "source": "dataconnect"
   }
 }

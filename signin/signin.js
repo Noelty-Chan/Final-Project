@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 const auth = getAuth(initializeApp(firebaseConfig));
 const params = new URLSearchParams(window.location.search);
-const returnTo = ["index.html", "saved.html"].includes(params.get("return")) ? params.get("return") : "index.html";
+const returnTo = params.get("return") === "saved" ? "../saved/" : "../create/";
 let mode = params.get("mode") === "signin" ? "signin" : "signup";
 const $ = (id) => document.getElementById(id);
 

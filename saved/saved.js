@@ -44,13 +44,13 @@ function renderSaved() {
   if (!currentUser) {
     $("empty-title").textContent = "Your collection is waiting.";
     $("empty-copy").textContent = "Sign in to see the quotes you’ve saved.";
-    $("empty-link").href = "signin.html?mode=signin&return=saved.html";
+    $("empty-link").href = "../signin/?mode=signin&return=saved";
     $("empty-link").textContent = "Sign in to your account";
     return;
   }
   $("empty-title").textContent = "Your collection starts here.";
   $("empty-copy").textContent = "When a quote speaks to you, save it here for another day.";
-  $("empty-link").href = "index.html";
+  $("empty-link").href = "../create/";
   $("empty-link").textContent = "Find your first quote";
 
   items.forEach((quote) => {
