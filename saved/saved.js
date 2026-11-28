@@ -45,7 +45,7 @@ function renderSaved() {
     $("empty-title").textContent = "Your collection is waiting.";
     $("empty-copy").textContent = "Sign in to see the quotes you’ve saved.";
     $("empty-link").href = "../signin/?mode=signin&return=saved";
-    $("empty-link").textContent = "Sign in to your account";
+    $("empty-link").textContent = "Sign In";
     return;
   }
   $("empty-title").textContent = "Your collection starts here.";

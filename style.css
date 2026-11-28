@@ -2,11 +2,11 @@
     --paper: #f8f7f4;
     --ink: #252722;
     --muted: #8b8b81;
-    --caramel: #7b8263;
+    --caramel: #b18455;
     --line: #e9e7e0;
     --serif: 'Lora', Georgia, serif;
     --script: 'Caveat', cursive;
-    --sans: 'DM Sans', Arial, sans-serif
+    --sans: 'Courier New', Courier, 'Liberation Mono', 'DejaVu Sans Mono', monospace
 }
 
 * {
@@ -31,11 +31,17 @@ body.modal-open {
 
 button,
 a {
-    font:inherit
+    font: inherit
 }
 
 button {
     cursor: pointer
+}
+
+button,
+.dark-button,
+.saved-signin {
+    text-transform: capitalize;
 }
 
 .app-shell {
@@ -83,12 +89,11 @@ button {
     border-radius: 50%;
     background: #83896e;
     color: white;
-    font:italic 19px var(--serif)
+    font: italic 19px var(--serif)
 }
 
 .side-label,
 .card-eyebrow,
-.eyebrow,
 .breadcrumb,
 .image-tag,
 .tiny-footer,
@@ -173,7 +178,7 @@ button {
 }
 
 .side-note p {
-    font:italic 16px/1.45 var(--serif);
+    font: italic 16px/1.45 var(--serif);
     margin: 12px 0 15px;
     color: #515448
 }
@@ -237,22 +242,9 @@ button {
     padding: 34px 0 29px
 }
 
-.eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-size: clamp(16px, calc(1vw + 12px), 18px)
-}
-
-.eyebrow-line {
-    width: 19px;
-    height: 1px;
-    background: #9ba081
-}
-
 .intro h1,
 .saved-title h1 {
-    font:500 38px/1.2 var(--serif);
+    font: 500 38px/1.2 var(--serif);
     letter-spacing: -1.3px;
     margin: 12px 0 7px
 }
@@ -298,12 +290,12 @@ button {
 }
 
 .step-number {
-    font:italic clamp(16px, calc(1vw + 12px), 18px) var(--serif);
+    font: italic clamp(16px, calc(1vw + 12px), 18px) var(--serif);
     color: #a0a18e
 }
 
 .section-heading h2 {
-    font:500 17px var(--serif);
+    font: 500 17px var(--serif);
     margin: 0;
     letter-spacing: -.2px
 }
@@ -436,7 +428,7 @@ button {
 }
 
 .quote-copy blockquote {
-    font:500 clamp(26px, 3vw, 38px)/1.25 var(--serif);
+    font: 500 clamp(26px, 3vw, 38px)/1.25 var(--serif);
     letter-spacing: -.65px;
     margin: 0;
     max-width: 610px;
@@ -456,6 +448,7 @@ button {
     letter-spacing: .6px;
     color: #ffffffe0
 }
+
 .card-actions {
     display: flex;
     align-items: center;
@@ -466,8 +459,8 @@ button {
 .download-button {
     border: 0;
     border-radius: 5px;
-    background: #72785d;
-    color: white;
+    background: #493727;
+    color: #f0e4d2;
     padding: 11px 15px;
     font-size: clamp(16px, calc(1vw + 12px), 18px);
     letter-spacing: .15px;
@@ -476,7 +469,7 @@ button {
 }
 
 .download-button:hover {
-    background: #5c634b;
+    background: #38291d;
     transform: translateY(-1px)
 }
 
@@ -527,7 +520,7 @@ button {
 
 .account-card h3 {
     position: relative;
-    font:500 23px/1.23 var(--serif);
+    font: 500 23px/1.23 var(--serif);
     letter-spacing: -.4px;
     margin: 24px 0 10px
 }
@@ -545,7 +538,7 @@ button {
     align-items: center;
     width: 100%;
     border: 0;
-    background: #54594a;
+    background: #493727;
     color: #fff;
     border-radius: 4px;
     padding: 12px 12px;
@@ -569,7 +562,7 @@ button {
 }
 
 .text-button b {
-    color: #54594a;
+    color: #493727;
     font-weight: 600
 }
 
@@ -591,7 +584,7 @@ button {
 }
 
 .quote-tip p {
-    font:italic clamp(16px, calc(1vw + 12px), 18px)/1.45 var(--serif);
+    font: italic clamp(16px, calc(1vw + 12px), 18px)/1.45 var(--serif);
     color: #686a5e;
     margin: 7px 0 0
 }
@@ -605,7 +598,7 @@ button {
 }
 
 .tiny-footer span {
-    color: #a0a587;
+    color: #c89c68;
     padding-left: 4px
 }
 
@@ -693,7 +686,7 @@ button {
 }
 
 .saved-card blockquote {
-    font:500 24px/1.28 var(--serif);
+    font: 500 24px/1.28 var(--serif);
     margin: 12px 0 8px;
     max-width: 490px
 }
@@ -729,12 +722,12 @@ button {
 }
 
 .empty-state>span {
-    font:42px var(--serif);
-    color: #a0a587
+    font: 42px var(--serif);
+    color: #c89c68
 }
 
 .empty-state h3 {
-    font:500 25px var(--serif);
+    font: 500 25px var(--serif);
     color: #414239;
     margin: 12px 0 7px
 }
@@ -825,7 +818,7 @@ button {
 }
 
 .auth-modal h2 {
-    font:500 30px/1.22 var(--serif);
+    font: 500 30px/1.22 var(--serif);
     letter-spacing: -.5px;
     margin: 13px 0 8px
 }
@@ -853,7 +846,7 @@ button {
     background: #fffefa;
     padding: 11px 12px;
     color: #33352e;
-    font:clamp(16px, calc(1vw + 12px), 18px) var(--sans);
+    font: clamp(16px, calc(1vw + 12px), 18px) var(--sans);
     outline: none;
     margin-bottom: 14px
 }
@@ -1165,7 +1158,8 @@ button {
     .quote-copy blockquote {
         font-size: 30px
     }
-.right-column {
+
+    .right-column {
         grid-template-columns: 1fr 1fr
     }
 
@@ -1275,7 +1269,7 @@ button {
 }
 
 .auth-page-card h1 {
-    font:500 31px/1.2 var(--serif);
+    font: 500 31px/1.2 var(--serif);
     letter-spacing: -.6px;
     margin: 14px 0 8px
 }
@@ -1308,7 +1302,7 @@ button {
     background: #fff;
     padding: 12px;
     color: #33352e;
-    font:clamp(16px, calc(1vw + 12px), 18px) var(--sans);
+    font: clamp(16px, calc(1vw + 12px), 18px) var(--sans);
     outline: none;
     margin-bottom: 15px
 }
@@ -1599,7 +1593,7 @@ button {
 }
 
 .theme-heading h2 {
-    font:500 17px var(--serif);
+    font: 500 17px var(--serif);
     margin: 0
 }
 
@@ -1684,7 +1678,7 @@ button {
     outline: 0;
     background: transparent;
     color: #65685a;
-    font:clamp(16px, calc(1vw + 12px), 18px) var(--sans);
+    font: clamp(16px, calc(1vw + 12px), 18px) var(--sans);
     padding: 9px 17px 9px 0;
     cursor: pointer;
     background-image: linear-gradient(45deg, transparent 50%, #888a77 50%), linear-gradient(135deg, #888a77 50%, transparent 50%);
@@ -1845,7 +1839,8 @@ button {
     .quote-copy blockquote {
         font-size: clamp(26px, 8vw, 31px)
     }
-.saved-topbar {
+
+    .saved-topbar {
         padding-inline: 16px
     }
 
@@ -1932,19 +1927,19 @@ button {
     border: 0;
     background: transparent;
     color: #656a52;
-    font:600 clamp(16px, calc(1vw + 12px), 18px) var(--sans);
+    font: 600 clamp(16px, calc(1vw + 12px), 18px) var(--sans);
     padding: 7px 0
 }
 
 .top-account-actions .top-signup {
     padding: 9px 13px;
     border-radius: 4px;
-    background: #72785d;
-    color: #fff
+    background: #493727;
+    color: #f0e4d2
 }
 
 .top-account-actions .top-signup:hover {
-    background: #5c634b
+    background: #38291d
 }
 
 .top-account-user span {
@@ -2082,7 +2077,7 @@ button {
     background: transparent;
     color: #737665;
     padding: 10px 12px;
-    font:500 clamp(16px, calc(1vw + 12px), 18px) var(--sans);
+    font: 500 clamp(16px, calc(1vw + 12px), 18px) var(--sans);
     white-space: nowrap
 }
 
@@ -2195,7 +2190,6 @@ button {
 .side-label,
 .note-byline,
 .card-eyebrow,
-.eyebrow,
 .breadcrumb,
 .image-tag,
 .tiny-footer,
@@ -2336,7 +2330,7 @@ button {
     }
 
     .shuffle-button,
-        .download-button,
+    .download-button,
     .change-bg-button,
     .outline-button {
         font-size: clamp(16px, calc(1vw + 12px), 18px)
@@ -2349,7 +2343,7 @@ button {
     }
 
     .image-tag,
-.saved-card-actions button {
+    .saved-card-actions button {
         font-size: clamp(16px, calc(1vw + 12px), 18px)
     }
 
@@ -2388,6 +2382,7 @@ button {
         font-size: clamp(16px, calc(1vw + 12px), 18px)
     }
 }
+
 /* Dark vintage palette */
 :root {
     --paper: #1a1511;
@@ -2480,8 +2475,8 @@ body {
     color: #c89d69;
 }
 
-.intro > p,
-.saved-title > div > p {
+.intro>p,
+.saved-title>div>p {
     color: #b5a48d;
 }
 
@@ -2644,6 +2639,7 @@ select:focus-visible {
     height: auto;
     padding-block: 9px;
 }
+
 .top-account-actions,
 .top-account-user,
 .saved-top-actions {
@@ -2651,6 +2647,7 @@ select:focus-visible {
     flex-wrap: wrap;
     row-gap: 6px;
 }
+
 .top-account-actions .top-signin,
 .top-account-actions .top-signup,
 .top-account-user button,
@@ -2662,6 +2659,7 @@ select:focus-visible {
     align-items: center;
     justify-content: center;
 }
+
 .saved-topbar {
     min-height: 72px;
     height: auto;
@@ -2669,14 +2667,20 @@ select:focus-visible {
     flex-wrap: wrap;
     padding-block: 10px;
 }
+
 .saved-topbar .brand,
 .saved-top-actions {
     flex-shrink: 0;
 }
 
 @media (max-width: 820px) {
-    .topbar { min-height: 62px; }
-    .saved-topbar { min-height: 64px; }
+    .topbar {
+        min-height: 62px;
+    }
+
+    .saved-topbar {
+        min-height: 64px;
+    }
 }
 
 @media (max-width: 560px) {
@@ -2685,29 +2689,44 @@ select:focus-visible {
         height: auto;
         padding-block: 7px;
     }
+
     .top-account-actions,
     .top-account-user {
         max-width: 100%;
         gap: 8px;
     }
-    .top-account-actions > span { white-space: nowrap; }
-    .top-account-user span { max-width: min(42vw, 150px); }
+
+    .top-account-actions>span {
+        white-space: nowrap;
+    }
+
+    .top-account-user span {
+        max-width: min(42vw, 150px);
+    }
+
     .top-account-actions .top-signin,
     .top-account-actions .top-signup,
     .top-account-user button {
         min-height: 40px;
     }
+
     .saved-topbar {
         min-height: 62px;
         flex-wrap: nowrap;
         gap: 8px;
         padding: 8px 16px;
     }
-    .saved-topbar .brand { gap: 7px; font-size: clamp(16px, calc(1vw + 12px), 18px); }
+
+    .saved-topbar .brand {
+        gap: 7px;
+        font-size: clamp(16px, calc(1vw + 12px), 18px);
+    }
+
     .saved-top-actions {
         flex-wrap: nowrap;
         gap: 7px;
     }
+
     .saved-top-actions .saved-create-cta {
         min-height: 38px;
         padding-inline: 9px;
@@ -2716,33 +2735,57 @@ select:focus-visible {
 }
 
 @media (max-width: 380px) {
-    .topbar { min-height: 54px; }
-    .top-account-actions { gap: 10px; }
-    .saved-topbar .brand { font-size: clamp(16px, calc(1vw + 12px), 18px); }
-    .saved-topbar .brand-logo { width: 26px; height: 26px; }
-    .saved-top-actions { gap: 5px; }
-    .saved-top-actions .saved-create-cta { padding-inline: 7px; font-size: clamp(16px, calc(1vw + 12px), 18px); }
+    .topbar {
+        min-height: 54px;
+    }
+
+    .top-account-actions {
+        gap: 10px;
+    }
+
+    .saved-topbar .brand {
+        font-size: clamp(16px, calc(1vw + 12px), 18px);
+    }
+
+    .saved-topbar .brand-logo {
+        width: 26px;
+        height: 26px;
+    }
+
+    .saved-top-actions {
+        gap: 5px;
+    }
+
+    .saved-top-actions .saved-create-cta {
+        padding-inline: 7px;
+        font-size: clamp(16px, calc(1vw + 12px), 18px);
+    }
 }
 
 /* Contrast safeguards for themeable and photographic content */
 .image-shade {
     background: linear-gradient(180deg, rgba(16, 11, 7, .68), rgba(16, 11, 7, .58) 38%, rgba(16, 11, 7, .84));
 }
+
 .quote-copy:not(.has-light-panel) {
     background: rgba(22, 15, 10, .92);
     color: #fff;
 }
+
 .quote-copy:not(.has-light-panel) .quote-author {
     color: #f0e4d2;
 }
+
 .quote-copy.has-light-panel {
     background: rgba(248, 242, 231, .97);
     color: #292019;
 }
+
 .quote-copy.has-light-panel .quote-author {
     color: #493727;
 }
-.saved-card.light-quote-panel .saved-card-copy > p {
+
+.saved-card.light-quote-panel .saved-card-copy>p {
     display: inline-block;
     margin-top: 0;
     padding: 7px 14px;
@@ -2761,10 +2804,12 @@ select:focus-visible {
 .bookmark-nav-icon {
     color: #d3ad7b;
 }
+
 .quote-copy.has-light-panel .quote-rule {
     color: #6b654a;
     background-color: #6b654a;
 }
+
 .auth-back-link:hover {
     color: #edc58f;
 }
@@ -2781,38 +2826,64 @@ select:focus-visible {
     --header-sidebar: 252px;
     --header-gutter: 7.2vw;
 }
-.main-content > .topbar {
+
+.main-content>.topbar {
     width: calc(100vw - var(--header-sidebar));
     margin-left: calc(0px - var(--header-gutter));
     padding-left: var(--header-gutter);
     padding-right: var(--header-gutter);
 }
+
 @media (min-width: 1500px) {
-    .main-content { --header-gutter: 9vw; }
+    .main-content {
+        --header-gutter: 9vw;
+    }
 }
+
 @media (max-width: 1100px) {
-    .main-content { --header-sidebar: 218px; --header-gutter: 5vw; }
+    .main-content {
+        --header-sidebar: 218px;
+        --header-gutter: 5vw;
+    }
 }
+
 @media (max-width: 1000px) and (min-width: 821px) {
-    .main-content { --header-sidebar: 196px; --header-gutter: 3.5vw; }
+    .main-content {
+        --header-sidebar: 196px;
+        --header-gutter: 3.5vw;
+    }
 }
+
 @media (max-width: 820px) {
-    .main-content { --header-sidebar: 68px; --header-gutter: 5vw; }
+    .main-content {
+        --header-sidebar: 68px;
+        --header-gutter: 5vw;
+    }
 }
+
 @media (max-width: 560px) {
-    .main-content { --header-sidebar: 0px; --header-gutter: 20px; }
+    .main-content {
+        --header-sidebar: 0px;
+        --header-gutter: 20px;
+    }
 }
+
 @media (max-width: 380px) {
-    .main-content { --header-gutter: 14px; }
+    .main-content {
+        --header-gutter: 14px;
+    }
 }
+
 .preview-spec span:last-child {
     color: #f1d7aa;
     background: transparent;
     font-weight: 700;
 }
+
 .quote-rule {
     background-color: #b88a57;
 }
+
 .quote-copy:not(.has-light-panel) {
     width: 92%;
     margin: auto 4%;
@@ -2820,6 +2891,7 @@ select:focus-visible {
     border-radius: 8px;
     background: rgba(22, 15, 10, .94);
 }
+
 .quote-copy.has-light-panel {
     width: 92%;
     margin: auto 4%;
@@ -2828,12 +2900,25 @@ select:focus-visible {
 }
 
 @media (max-width: 560px) {
-    .quote-heading { flex-wrap: wrap; }
-    .quote-heading .quote-actions { width: 100%; justify-content: space-between; }
+    .quote-heading {
+        flex-wrap: wrap;
+    }
+
+    .quote-heading .quote-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
+
 @media (max-width: 380px) {
-    .saved-topbar { flex-wrap: wrap; justify-content: space-between; }
-    .saved-top-actions { flex-wrap: wrap; }
+    .saved-topbar {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .saved-top-actions {
+        flex-wrap: wrap;
+    }
 }
 
 .preview-empty {
@@ -2848,21 +2933,22 @@ select:focus-visible {
     text-align: center;
     font: clamp(16px, calc(1vw + 12px), 18px)/1.6 var(--sans);
 }
+
 .shuffle-button:disabled {
     opacity: .6;
     cursor: not-allowed;
 }
 
 .top-account-actions .top-signup {
-    background: #e4bc8a;
-    border: 1px solid #e4bc8a;
-    color: #1a1511;
+    background: #493727;
+    border: 1px solid #493727;
+    color: #f0e4d2;
 }
 
 .top-account-actions .top-signup:hover {
-    background: #f0d2a5;
-    border-color: #f0d2a5;
-    color: #1a1511;
+    background: #38291d;
+    border-color: #38291d;
+    color: #f0e4d2;
 }
 
 .top-account-actions .top-signup,
@@ -2937,7 +3023,7 @@ select:focus-visible {
     font: 500 23px/1.3 var(--serif);
 }
 
-.removed-quotes-section > p {
+.removed-quotes-section>p {
     margin: 0 0 16px;
     color: #c1ae93;
     font-size: clamp(16px, calc(1vw + 12px), 18px);
@@ -2979,8 +3065,15 @@ select:focus-visible {
 }
 
 @media (max-width: 560px) {
-    .removed-quotes-section { padding: 18px 14px; }
-    .removed-quote-row { align-items: flex-start; flex-direction: column; gap: 10px; }
+    .removed-quotes-section {
+        padding: 18px 14px;
+    }
+
+    .removed-quote-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 /* Match the saved collection to the generator's dark vintage palette. */
@@ -2994,7 +3087,6 @@ select:focus-visible {
     border-color: #46382b;
 }
 
-.saved-title .eyebrow,
 .saved-total {
     color: #b49f84;
 }
@@ -3007,7 +3099,7 @@ select:focus-visible {
     color: #d3ad7b;
 }
 
-.saved-title > div > p {
+.saved-title>div>p {
     color: #b5a48d;
 }
 
